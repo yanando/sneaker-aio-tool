@@ -1,5 +1,4 @@
 import fs from 'fs/promises'
-import path from 'path'
 import { Command } from '../classes/Command'
 
 export class CommandHandler {

@@ -48,7 +48,7 @@ export default class StockXCommand extends Command {
             .setThumbnail(shoeInfo.imageURL)
             .setDescription(`Keywords: ${args.join(' ')}`)
             .addField('Size', shoeInfo.payouts.map(payout => payout.size).join('\n'), true)
-            .addField(`Level ${sellerLevel.split('level')[1]} payout`, shoeInfo.payouts.map(payout => `${payout[sellerLevel].toFixed(2)}`).join('\n'), true)
+            .addField(`Level ${sellerLevel.split('level')[1]} payout`, shoeInfo.payouts.map(payout => `${payout[sellerLevel].toFixed(2) === '-5.00' ? 'N/A' : payout[sellerLevel].toFixed(2)}`).join('\n'), true)
             .setColor('#00e0ff')
             .setFooter(`Requested by ${message.author.username}#${message.author.discriminator} • Made by yanando#0001`)
             .setTimestamp()

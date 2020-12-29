@@ -32,7 +32,7 @@ export default class ConvertCommand extends Command{
     private async getRate(currency1: string, currenty2: string) {
         const url = `https://free.currconv.com/api/v7/convert?q=${currency1}_${currenty2}&compact=ultra&apiKey=${this.apiKey}`
 
-        const response = await axios.get(url, {validateStatus: () => false})
+        const response = await axios.get(url, {validateStatus: () => true})
 
         if (response.status !== 200) {
             return NaN

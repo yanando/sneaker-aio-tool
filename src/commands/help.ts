@@ -1,7 +1,6 @@
 import { Command } from "../classes/Command";
 import { prefix } from "../Config";
 import { Message } from "discord.js";
-import fs from 'fs/promises'
 import CustomClient from "../classes/CustomClient";
 
 export default class HelpCommand extends Command {

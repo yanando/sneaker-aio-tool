@@ -1,5 +1,4 @@
-import {Client, Message, TextChannel} from 'discord.js'
-import { CommandHandler } from './commandhandler/CommandHandler'
+import {Message, TextChannel} from 'discord.js'
 import CustomClient from './classes/CustomClient'
 
 export class Bot {

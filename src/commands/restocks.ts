@@ -5,7 +5,7 @@ import { prefix } from "../Config";
 
 export default class RestocksCommand extends Command {
     readonly name = 'restocks'
-    readonly description = 'Gets payouts based on keywords'
+    readonly description = 'Gets Restocks payouts based on keywords'
     readonly adminOnly = false
     readonly usage = `${prefix}${this.name} <...keywords>`
 

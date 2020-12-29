@@ -5,7 +5,7 @@ import { Message, MessageEmbed } from "discord.js";
 
 export default class GoatCommand extends Command {
     readonly name = 'goat'
-    readonly description = 'gets goat payouts'
+    readonly description = 'Gets GOAT payouts based on keywords'
     readonly adminOnly = false
     readonly usage = `${prefix}${this.name} <payout type (paypal | transferwise)> <...keywords>`
 

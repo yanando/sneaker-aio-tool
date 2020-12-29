@@ -8,7 +8,7 @@ class RestocksCommand extends Command_1.Command {
     constructor() {
         super();
         this.name = 'restocks';
-        this.description = 'Gets payouts based on keywords';
+        this.description = 'Gets Restocks payouts based on keywords';
         this.adminOnly = false;
         this.usage = `${Config_1.prefix}${this.name} <...keywords>`;
         this.restocksHelper = new RestocksHelper_1.RestocksHelper();

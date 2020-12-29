@@ -1,12 +1,11 @@
 import {Client, Message, TextChannel} from 'discord.js'
 import { CommandHandler } from './commandhandler/CommandHandler'
+import CustomClient from './classes/CustomClient'
 
 export class Bot {
-    private client: Client
-    private commandHandler: CommandHandler
+    private client: CustomClient
     constructor(private token: string, public prefix: string) { 
-        this.client = new Client()
-        this.commandHandler = new CommandHandler()
+        this.client = new CustomClient()
     }
 
     public async start() {
@@ -21,7 +20,10 @@ export class Bot {
         })
 
         // initialize commands
-        await this.commandHandler.initialize()
+        await this.client.commandHandler.initialize()
+
+        // set status 
+        await this.client.user?.setActivity("$help", {type: 'WATCHING'})
     }
 
     private onMessage(message: Message) {
@@ -30,7 +32,7 @@ export class Bot {
         const args = message.content.split(/ +/g)
         const commandName = args.shift()?.slice(1)!
 
-        const command = this.commandHandler.commands.get(commandName)
+        const command = this.client.commandHandler.commands.get(commandName)
 
         if (!command) {
             return message.channel.send('command doesnt exist')

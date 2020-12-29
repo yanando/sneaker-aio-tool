@@ -5,7 +5,7 @@ import { prefix } from "../Config";
 
 export default class StockXCommand extends Command {
     readonly name = 'stockx'
-    readonly description = 'gets prices and payout of a shoe'
+    readonly description = 'Gets StockX payouts based on keywords'
     readonly adminOnly = false
     readonly usage = `${prefix}${this.name} <sellerlevel (1, 2, 3 ,4)> <...keywords>`
 

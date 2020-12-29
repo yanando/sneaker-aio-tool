@@ -8,7 +8,7 @@ class GoatCommand extends Command_1.Command {
     constructor() {
         super();
         this.name = 'goat';
-        this.description = 'gets goat payouts';
+        this.description = 'Gets GOAT payouts based on keywords';
         this.adminOnly = false;
         this.usage = `${Config_1.prefix}${this.name} <payout type (paypal | transferwise)> <...keywords>`;
         this.goatHelper = new GoatHelper_1.GoatHelper();

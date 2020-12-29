@@ -8,7 +8,7 @@ class StockXCommand extends Command_1.Command {
     constructor() {
         super();
         this.name = 'stockx';
-        this.description = 'gets prices and payout of a shoe';
+        this.description = 'Gets StockX payouts based on keywords';
         this.adminOnly = false;
         this.usage = `${Config_1.prefix}${this.name} <sellerlevel (1, 2, 3 ,4)> <...keywords>`;
         this.stockxHelper = new StockXHelper_1.StockxHelper();
@@ -38,7 +38,7 @@ class StockXCommand extends Command_1.Command {
             .setThumbnail(shoeInfo.imageURL)
             .setDescription(`Keywords: ${args.join(' ')}`)
             .addField('Size', shoeInfo.payouts.map(payout => payout.size).join('\n'), true)
-            .addField(`Level ${sellerLevel.split('level')[1]} payout`, shoeInfo.payouts.map(payout => `${payout[sellerLevel].toFixed(2)}`).join('\n'), true)
+            .addField(`Level ${sellerLevel.split('level')[1]} payout`, shoeInfo.payouts.map(payout => `${payout[sellerLevel].toFixed(2) === '-5.00' ? 'N/A' : payout[sellerLevel].toFixed(2)}`).join('\n'), true)
             .setColor('#00e0ff')
             .setFooter(`Requested by ${message.author.username}#${message.author.discriminator} • Made by yanando#0001`)
             .setTimestamp();

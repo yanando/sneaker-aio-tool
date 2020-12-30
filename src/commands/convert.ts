@@ -35,6 +35,7 @@ export default class ConvertCommand implements Command {
         const response = await axios.get(url, {validateStatus: () => true})
 
         if (response.status !== 200) {
+            console.log(response.status, response.data)
             return NaN
         }
 

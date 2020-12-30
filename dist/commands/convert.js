@@ -31,6 +31,7 @@ class ConvertCommand {
         const url = `https://free.currconv.com/api/v7/convert?q=${currency1}_${currenty2}&compact=ultra&apiKey=${this.apiKey}`;
         const response = await axios_1.default.get(url, { validateStatus: () => true });
         if (response.status !== 200) {
+            console.log(response.status, response.data);
             return NaN;
         }
         return response.data[`${currency1}_${currenty2}`];

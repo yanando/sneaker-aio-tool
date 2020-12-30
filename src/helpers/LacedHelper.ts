@@ -1,6 +1,7 @@
 import { ScrapeHelper } from "../interfaces/ScrapeHelper";
-import axios from "axios";
+import request from "request-promise-native";
 import { LacedShoeInfo, LacedSizeInfo } from "../interfaces/shoeinfo/LacedShoeInfo";
+import { proxyURL } from "../Config";
 
 const lacedCut = 0.12 // 12%
 const paymentProcessingFee = 0.03 // 3%
@@ -13,9 +14,9 @@ export class LacedHelper implements ScrapeHelper {
 
         const url = `https://www.laced.co.uk/search?utf8=%E2%9C%93&search%5Bsort_by%5D=&search%5Bterm%5D=${positiveKeywords.join('+')}`
         
-        const response = await axios.get(url)
+        const response = await request.get(url, {proxy: proxyURL})
 
-        const infoObject = JSON.parse(((response.data as string).split('data-react-props="')[4].split('"')[0] as any).replaceAll('&quot;', '"'))
+        const infoObject = JSON.parse(((response as string).split('data-react-props="')[4].split('"')[0] as any).replaceAll('&quot;', '"'))
 
         const filteredShoeItems: any[] = infoObject.products.filter((item: any) => {
             return !negativeKeywords.some(keyword => item.title.toLowerCase().includes(keyword.toLowerCase()))
@@ -29,13 +30,13 @@ export class LacedHelper implements ScrapeHelper {
     }
 
     public async getShoeInfo(slug: string): Promise<LacedShoeInfo> {
-        const resp = await axios.get(`https://www.laced.co.uk${slug}`)
+        const resp = await request.get(`https://www.laced.co.uk${slug}`, {proxy: proxyURL})
 
-        const infoObject = JSON.parse(resp.data.split('data-react-props="')[5].split('"')[0].replaceAll('&quot;', '"'))
+        const infoObject = JSON.parse(resp.split('data-react-props="')[5].split('"')[0].replaceAll('&quot;', '"'))
 
-        const imageURL = resp.data.split('<meta property="og:image" content="')[1].split('"')[0]
+        const imageURL = resp.split('<meta property="og:image" content="')[1].split('"')[0]
 
-        const name = resp.data.split('<meta property="og:title" content="')[1].split(' |')[0]
+        const name = resp.split('<meta property="og:title" content="')[1].split(' |')[0]
 
         const payouts: LacedSizeInfo[] = (infoObject.sizesAndPrices as any[]).map((sizeObj: any) => {
 

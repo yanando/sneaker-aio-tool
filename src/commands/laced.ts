@@ -5,7 +5,7 @@ import { LacedHelper } from "../helpers/LacedHelper";
 
 export default class LacedCommand implements Command {
     readonly name = 'laced'
-    readonly description = 'scrapes laced payouts'
+    readonly description = 'Gets Laced payouts based on keywords'
     readonly adminOnly = false
     readonly usage = `${prefix}${this.name} <...keywords>`
 

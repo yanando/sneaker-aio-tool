@@ -6,7 +6,7 @@ const LacedHelper_1 = require("../helpers/LacedHelper");
 class LacedCommand {
     constructor() {
         this.name = 'laced';
-        this.description = 'scrapes laced payouts';
+        this.description = 'Gets Laced payouts based on keywords';
         this.adminOnly = false;
         this.usage = `${Config_1.prefix}${this.name} <...keywords>`;
         this.lacedHelper = new LacedHelper_1.LacedHelper();

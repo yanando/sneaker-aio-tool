@@ -1,10 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Command_1 = require("../classes/Command");
 const Config_1 = require("../Config");
-class HelpCommand extends Command_1.Command {
+class HelpCommand {
     constructor() {
-        super(...arguments);
         this.name = 'help';
         this.description = 'Lists all commands with their description or replies with a certain command\'s description and usage';
         this.adminOnly = false;

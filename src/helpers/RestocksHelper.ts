@@ -1,8 +1,9 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
-import { RestocksShoeInfo } from '../interface/RestocksShoeInfo'
+import { RestocksShoeInfo } from '../interfaces/shoeinfo/RestocksShoeInfo'
+import { ScrapeHelper } from '../interfaces/ScrapeHelper'
 
-export class RestocksHelper {
+export class RestocksHelper implements ScrapeHelper{
     public async getSlug(keywords: string[]): Promise<string | undefined>{
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'))
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1))
@@ -46,7 +47,7 @@ export class RestocksHelper {
             if (!price) {
                 payout = undefined
             } else {
-                payout = (price! * 0.90 - 10).toFixed(2)
+                payout = price! * 0.90 - 10
             }
 
             return {
@@ -73,7 +74,7 @@ export class RestocksHelper {
             if (!price) {
                 payout = undefined
             } else {
-                payout = (price! * 0.95 - 10).toFixed(2)
+                payout = price! * 0.95 - 10
             }
 
             return {
@@ -98,7 +99,7 @@ export class RestocksHelper {
                 if (!basePrice) {
                     resellPrice = undefined
                 } else {
-                    resellPrice = (basePrice * 0.90 - 10).toFixed(2)
+                    resellPrice = basePrice * 0.90 - 10
                 }
             }
 
@@ -108,7 +109,7 @@ export class RestocksHelper {
                 if (!basePrice) {
                     consignPrice = undefined
                 } else {
-                    consignPrice = (basePrice * 0.95 - 10).toFixed(2)
+                    consignPrice = basePrice * 0.95 - 10
                 }
             }
 

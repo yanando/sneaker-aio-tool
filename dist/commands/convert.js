@@ -3,12 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Command_1 = require("../classes/Command");
 const Config_1 = require("../Config");
 const axios_1 = __importDefault(require("axios"));
-class ConvertCommand extends Command_1.Command {
+class ConvertCommand {
     constructor() {
-        super(...arguments);
         this.name = 'convert';
         this.description = 'Convert currency';
         this.adminOnly = false;
@@ -18,7 +16,7 @@ class ConvertCommand extends Command_1.Command {
     async run(message, args) {
         var _a, _b;
         if (args.length !== 3) {
-            message.channel.send(`not enough or too many arguments\nUsage: ${this.usage}`);
+            return message.channel.send(`not enough or too many arguments\nUsage: ${this.usage}`);
         }
         const currency1 = (_a = args.shift()) === null || _a === void 0 ? void 0 : _a.toUpperCase();
         const currency2 = (_b = args.shift()) === null || _b === void 0 ? void 0 : _b.toUpperCase();

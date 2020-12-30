@@ -1,9 +1,9 @@
-import { Command } from "../classes/Command";
+import { Command } from "../interfaces/Command";
 import { prefix } from "../Config";
 import { GoatHelper } from "../helpers/GoatHelper";
 import { Message, MessageEmbed } from "discord.js";
 
-export default class GoatCommand extends Command {
+export default class GoatCommand implements Command {
     readonly name = 'goat'
     readonly description = 'Gets GOAT payouts based on keywords'
     readonly adminOnly = false
@@ -12,7 +12,6 @@ export default class GoatCommand extends Command {
     private goatHelper: GoatHelper
 
     constructor() {
-        super()
         this.goatHelper = new GoatHelper()
     }
 

@@ -52,7 +52,7 @@ class StockxHelper {
             const basePrice = size.market.lowestAsk;
             const processingFee = basePrice * paymentProcessingFee;
             return {
-                size: `US ${size.shoeSize}`,
+                size: size.shoeSize,
                 level1: basePrice * level1Cut - processingFee - 5,
                 level2: basePrice * level2Cut - processingFee - 5,
                 level3: basePrice * level3Cut - processingFee - 5,

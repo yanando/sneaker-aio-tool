@@ -38,7 +38,7 @@ class RestocksHelper {
                 payout = undefined;
             }
             else {
-                payout = (price * 0.90 - 10).toFixed(2);
+                payout = price * 0.90 - 10;
             }
             return {
                 size: size,
@@ -61,7 +61,7 @@ class RestocksHelper {
                 payout = undefined;
             }
             else {
-                payout = (price * 0.95 - 10).toFixed(2);
+                payout = price * 0.95 - 10;
             }
             return {
                 size: size,
@@ -80,7 +80,7 @@ class RestocksHelper {
                     resellPrice = undefined;
                 }
                 else {
-                    resellPrice = (basePrice * 0.90 - 10).toFixed(2);
+                    resellPrice = basePrice * 0.90 - 10;
                 }
             }
             if (!consignPrice) {
@@ -89,7 +89,7 @@ class RestocksHelper {
                     consignPrice = undefined;
                 }
                 else {
-                    consignPrice = (basePrice * 0.95 - 10).toFixed(2);
+                    consignPrice = basePrice * 0.95 - 10;
                 }
             }
             return {

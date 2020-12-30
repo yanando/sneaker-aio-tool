@@ -4,7 +4,7 @@ export interface GoatShoeInfo {
     payouts: GoatSizeInfo[]
 }
 
-export interface GoatSizeInfo {
+interface GoatSizeInfo {
     size: string
     payout: number
 }

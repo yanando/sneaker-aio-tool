@@ -1,12 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Command_1 = require("../classes/Command");
 const Config_1 = require("../Config");
 const GoatHelper_1 = require("../helpers/GoatHelper");
 const discord_js_1 = require("discord.js");
-class GoatCommand extends Command_1.Command {
+class GoatCommand {
     constructor() {
-        super();
         this.name = 'goat';
         this.description = 'Gets GOAT payouts based on keywords';
         this.adminOnly = false;

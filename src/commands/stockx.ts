@@ -1,9 +1,9 @@
-import { Command } from "../classes/Command";
+import { Command } from "../interfaces/Command";
 import { Message, MessageEmbed } from "discord.js";
 import { StockxHelper } from '../helpers/StockXHelper'
 import { prefix } from "../Config";
 
-export default class StockXCommand extends Command {
+export default class StockXCommand implements Command {
     readonly name = 'stockx'
     readonly description = 'Gets StockX payouts based on keywords'
     readonly adminOnly = false
@@ -12,7 +12,6 @@ export default class StockXCommand extends Command {
     private stockxHelper: StockxHelper
 
     constructor() {
-        super()
         this.stockxHelper = new StockxHelper()
     }
 
@@ -47,7 +46,7 @@ export default class StockXCommand extends Command {
             .setURL(`https://stockx.com/${slug}`)
             .setThumbnail(shoeInfo.imageURL)
             .setDescription(`Keywords: ${args.join(' ')}`)
-            .addField('Size', shoeInfo.payouts.map(payout => payout.size).join('\n'), true)
+            .addField('Size', shoeInfo.payouts.map(payout => `US ${payout.size}`).join('\n'), true)
             .addField(`Level ${sellerLevel.split('level')[1]} payout`, shoeInfo.payouts.map(payout => `${payout[sellerLevel].toFixed(2) === '-5.00' ? 'N/A' : payout[sellerLevel].toFixed(2)}`).join('\n'), true)
             .setColor('#00e0ff')
             .setFooter(`Requested by ${message.author.username}#${message.author.discriminator} • Made by yanando#0001`)

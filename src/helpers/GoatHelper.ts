@@ -1,12 +1,13 @@
 import axios from 'axios'
-import { GoatSizeInfo, GoatShoeInfo } from '../interface/GoatShoeInfo'
+import { GoatSizeInfo, GoatShoeInfo } from '../interfaces/shoeinfo/GoatShoeInfo'
+import { ScrapeHelper } from '../interfaces/ScrapeHelper'
 
 const goatCut = 0.905 // 9.5%
 const goatShipping = 10 // 10usd
 
 const payoutFee = 0.971
 
-export class GoatHelper {
+export class GoatHelper implements ScrapeHelper{
     public async getSlug(keywords: string[]) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'))
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1))

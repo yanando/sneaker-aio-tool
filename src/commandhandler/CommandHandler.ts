@@ -1,5 +1,5 @@
 import fs from 'fs/promises'
-import { Command } from '../classes/Command'
+import { Command } from '../interfaces/Command'
 
 export class CommandHandler {
     public commands: Map<string, Command>

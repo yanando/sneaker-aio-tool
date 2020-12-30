@@ -1,12 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Command_1 = require("../classes/Command");
 const discord_js_1 = require("discord.js");
 const StockXHelper_1 = require("../helpers/StockXHelper");
 const Config_1 = require("../Config");
-class StockXCommand extends Command_1.Command {
+class StockXCommand {
     constructor() {
-        super();
         this.name = 'stockx';
         this.description = 'Gets StockX payouts based on keywords';
         this.adminOnly = false;
@@ -37,7 +35,7 @@ class StockXCommand extends Command_1.Command {
             .setURL(`https://stockx.com/${slug}`)
             .setThumbnail(shoeInfo.imageURL)
             .setDescription(`Keywords: ${args.join(' ')}`)
-            .addField('Size', shoeInfo.payouts.map(payout => payout.size).join('\n'), true)
+            .addField('Size', shoeInfo.payouts.map(payout => `US ${payout.size}`).join('\n'), true)
             .addField(`Level ${sellerLevel.split('level')[1]} payout`, shoeInfo.payouts.map(payout => `${payout[sellerLevel].toFixed(2) === '-5.00' ? 'N/A' : payout[sellerLevel].toFixed(2)}`).join('\n'), true)
             .setColor('#00e0ff')
             .setFooter(`Requested by ${message.author.username}#${message.author.discriminator} • Made by yanando#0001`)

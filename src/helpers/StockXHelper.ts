@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { StockxShoeInfo, StockxSizeInfo } from '../interface/StockxShoeInfo'
+import { StockxShoeInfo, StockxSizeInfo } from '../interfaces/shoeinfo/StockxShoeInfo'
+import { ScrapeHelper } from '../interfaces/ScrapeHelper'
 
 const level1Cut = 0.905 // 9,5%
 const level2Cut = 0.91  // 9%
@@ -8,7 +9,7 @@ const level4Cut = 0.92  // 8%
 
 const paymentProcessingFee = 0.03
 
-export class StockxHelper {
+export class StockxHelper implements ScrapeHelper{
     public async getSlug(keywords: string[]) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'))
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1))
@@ -65,7 +66,7 @@ export class StockxHelper {
             const processingFee = basePrice * paymentProcessingFee
 
             return {
-                size: `US ${size.shoeSize}`,
+                size: size.shoeSize,
                 level1: basePrice * level1Cut - processingFee - 5,
                 level2: basePrice * level2Cut - processingFee - 5,
                 level3: basePrice * level3Cut - processingFee - 5,

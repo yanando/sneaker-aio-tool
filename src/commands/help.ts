@@ -1,9 +1,9 @@
-import { Command } from "../classes/Command";
+import { Command } from "../interfaces/Command";
 import { prefix } from "../Config";
 import { Message } from "discord.js";
 import CustomClient from "../classes/CustomClient";
 
-export default class HelpCommand extends Command {
+export default class HelpCommand implements Command {
     readonly name = 'help'
     readonly description = 'Lists all commands with their description or replies with a certain command\'s description and usage'
     readonly adminOnly = false

@@ -1,8 +1,8 @@
-import { Command } from "../classes/Command";
+import { Command } from "../interfaces/Command";
 import { Message } from "discord.js";
 import { prefix } from "../Config";
 
-export default class PingCommand extends Command {
+export default class PingCommand implements Command {
     readonly name = 'ping'
     readonly description = 'Replies with pong!'
     readonly adminOnly = false

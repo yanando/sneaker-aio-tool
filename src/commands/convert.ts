@@ -1,9 +1,9 @@
-import { Command } from "../classes/Command"
+import { Command } from "../interfaces/Command"
 import { prefix } from "../Config"
 import { Message } from "discord.js"
 import axios from "axios"
 
-export default class ConvertCommand extends Command{
+export default class ConvertCommand implements Command {
     readonly name = 'convert'
     readonly description = 'Convert currency'
     readonly adminOnly = false
@@ -13,7 +13,7 @@ export default class ConvertCommand extends Command{
 
     public async run(message: Message, args: string[]){
         if (args.length !== 3) {
-            message.channel.send(`not enough or too many arguments\nUsage: ${this.usage}`)
+            return message.channel.send(`not enough or too many arguments\nUsage: ${this.usage}`)
         }
 
         const currency1 = args.shift()?.toUpperCase()!
@@ -29,7 +29,7 @@ export default class ConvertCommand extends Command{
         message.channel.send(`${amount} ${currency1} = ${(amount * rate).toFixed(2)} ${currency2}`)
     }
 
-    private async getRate(currency1: string, currenty2: string) {
+    public async getRate(currency1: string, currenty2: string) {
         const url = `https://free.currconv.com/api/v7/convert?q=${currency1}_${currenty2}&compact=ultra&apiKey=${this.apiKey}`
 
         const response = await axios.get(url, {validateStatus: () => true})

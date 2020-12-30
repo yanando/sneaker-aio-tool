@@ -4,8 +4,8 @@ export interface RestocksShoeInfo {
     payouts: RestocksSizeInfo[]
 }
 
-export interface RestocksSizeInfo {
+interface RestocksSizeInfo {
     size: string
-    resellPrice?: string
-    consignPrice?: string
+    resellPrice?: number
+    consignPrice?: number
 }

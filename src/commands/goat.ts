@@ -39,7 +39,7 @@ export default class GoatCommand implements Command {
             .setThumbnail(shoeInfo.imageURL)
             .setDescription(`Keywords: ${args.join(' ')}`)
             .addField('Sizes', shoeInfo.payouts.map(e => e.size).join('\n'), true)
-            .addField('Payout in $', shoeInfo.payouts.map(e => e.payout.toFixed(2)).join('\n'), true)
+            .addField('Payout in $', shoeInfo.payouts.map(e =>  e.payout ? e.payout.toFixed(2) : 'N/A').join('\n'), true)
             .setFooter(`Requested by ${message.author.username}#${message.author.discriminator} • Made by yanando#0001`)
             .setColor('#00e0ff')
             .setTimestamp()

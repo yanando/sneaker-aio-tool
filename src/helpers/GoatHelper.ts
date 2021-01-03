@@ -5,7 +5,7 @@ import { ScrapeHelper } from '../interfaces/ScrapeHelper'
 const goatCut = 0.905 // 9.5%
 const goatShipping = 10 // 10usd
 
-const payoutFee = 0.971
+const payoutFee = 0.971 // 2.9%
 
 export class GoatHelper implements ScrapeHelper{
     public async getSlug(keywords: string[]) {

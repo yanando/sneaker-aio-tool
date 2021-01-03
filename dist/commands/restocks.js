@@ -31,7 +31,7 @@ class RestocksCommand {
             .setThumbnail(shoeInfo.imageURL)
             .setDescription(`Keywords: ${args.join(' ')}`)
             .addField('Sizes', shoeInfo.payouts.map(e => e.size).join('\n'), true)
-            .addField('C|R Payout', shoeInfo.payouts.map(e => `${e.consignPrice && e.consignPrice.toFixed(2) || 'N/A'}|${e.resellPrice && e.resellPrice.toFixed(2) || 'N/A'}`), true)
+            .addField('C|R Payout', shoeInfo.payouts.map(e => `${e.consignPrice && e.consignPrice.toFixed(2) || 'N/A'} | ${e.resellPrice && e.resellPrice.toFixed(2) || 'N/A'}`), true)
             .setFooter(`Requested by ${message.author.tag} • Made by yanando#0001`)
             .setColor('#00e0ff')
             .setTimestamp();

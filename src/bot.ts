@@ -17,6 +17,8 @@ export class Bot {
             console.log(error)
             this.client.destroy()
         })
+        process.on('uncaughtException', this.handleError)
+        process.on('unhandledRejection', this.handleError)
 
         // initialize commands
         await this.client.commandHandler.initialize()
@@ -43,5 +45,9 @@ export class Bot {
             message.channel.send('Something went wrong while executing this commmand. An error log has been sent to yanando#0001');
             (this.client.channels.cache.get('680813832813543554') as TextChannel).send(error)
         }
+    }
+
+    private handleError(e: Error) {
+       (this.client.channels.cache.get('680813832813543554')! as any).send(e) 
     }
 }

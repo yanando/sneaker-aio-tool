@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const goatCut = 0.905; // 9.5%
 const goatShipping = 10; // 10usd
-const payoutFee = 0.971;
+const payoutFee = 0.971; // 2.9%
 class GoatHelper {
     async getSlug(keywords) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'));

@@ -1,9 +1,9 @@
-import {Message, TextChannel} from 'discord.js'
+import { Message, TextChannel } from 'discord.js'
 import CustomClient from './classes/CustomClient'
 
 export class Bot {
     private client: CustomClient
-    constructor(private token: string, public prefix: string) { 
+    constructor(private token: string, public prefix: string) {
         this.client = new CustomClient()
     }
 
@@ -15,16 +15,16 @@ export class Bot {
         this.client.on('message', msg => this.onMessage(msg))
         this.client.on('error', error => {
             console.log(error)
-            this.client.destroy()
+            // this.client.destroy()
         })
-        process.on('uncaughtException', this.handleError)
-        process.on('unhandledRejection', this.handleError)
+        process.on('uncaughtException', e => this.handleError(e))
+        process.on('unhandledRejection', e => this.handleError(e))
 
         // initialize commands
         await this.client.commandHandler.initialize()
 
         // set status 
-        await this.client.user?.setActivity("$help", {type: 'WATCHING'})
+        await this.client.user?.setActivity("$help", { type: 'WATCHING' })
     }
 
     private onMessage(message: Message) {
@@ -47,7 +47,12 @@ export class Bot {
         }
     }
 
-    private handleError(e: Error) {
-       (this.client.channels.cache.get('680813832813543554')! as any).send(e) 
+    private handleError(e: any) {
+        // console.log(this.client);
+        console.log(e)
+
+        if (e) {
+            (this.client.channels.cache.get('680813832813543554') as any).send(e.toString())
+        }
     }
 }

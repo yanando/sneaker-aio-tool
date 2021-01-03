@@ -3,8 +3,8 @@ import { CommandHandler } from "../commandhandler/CommandHandler";
 
 export default class CustomClient extends Client {
     public commandHandler: CommandHandler
-    constructor() {
-        super()
+    constructor(...args: any) {
+        super(...args)
         this.commandHandler = new CommandHandler()
     }
 }

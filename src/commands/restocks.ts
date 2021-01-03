@@ -36,7 +36,7 @@ export default class RestocksCommand implements Command {
         const embed = new MessageEmbed()
             .setTitle(`Restocks | ${shoeInfo.name}`)
             .setURL(`https://restocks.nl${slug}`)
-            .setThumbnail(shoeInfo.imageURL)
+            .setThumbnail(encodeURI(shoeInfo.imageURL))
             .setDescription(`Keywords: ${args.join(' ')}`)
             .addField('Sizes', shoeInfo.payouts.map(e => e.size).join('\n'), true)
             .addField('C|R Payout', shoeInfo.payouts.map(e => `${e.consignPrice && e.consignPrice.toFixed(2) || 'N/A'} | ${e.resellPrice && e.resellPrice.toFixed(2) || 'N/A'}`), true)

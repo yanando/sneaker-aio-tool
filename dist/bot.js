@@ -18,10 +18,10 @@ class Bot {
         this.client.on('message', msg => this.onMessage(msg));
         this.client.on('error', error => {
             console.log(error);
-            this.client.destroy();
+            // this.client.destroy()
         });
-        process.on('uncaughtException', this.handleError);
-        process.on('unhandledRejection', this.handleError);
+        process.on('uncaughtException', e => this.handleError(e));
+        process.on('unhandledRejection', e => this.handleError(e));
         // initialize commands
         await this.client.commandHandler.initialize();
         // set status 
@@ -46,7 +46,11 @@ class Bot {
         }
     }
     handleError(e) {
-        this.client.channels.cache.get('680813832813543554').send(e);
+        // console.log(this.client);
+        console.log(e);
+        if (e) {
+            this.client.channels.cache.get('680813832813543554').send(e.toString());
+        }
     }
 }
 exports.Bot = Bot;

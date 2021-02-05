@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.proxyURL = exports.prefix = exports.token = void 0;
 require('dotenv').config();
 exports.token = process.env.TOKEN;
 exports.prefix = '$';

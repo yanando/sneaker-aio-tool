@@ -12,7 +12,10 @@ export class Bot {
         await this.client.login(this.token)
 
         // register listeners
-        this.client.on('message', msg => this.onMessage(msg))
+        this.client.on('message', msg => {
+            if (msg.author.id === '502229568959021056') return
+            this.onMessage(msg)
+        })
         this.client.on('error', error => {
             console.log(error)
             // this.client.destroy()

@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GoatHelper = void 0;
 const axios_1 = __importDefault(require("axios"));
 const goatCut = 0.905; // 9.5%
 const goatShipping = 10; // 10usd

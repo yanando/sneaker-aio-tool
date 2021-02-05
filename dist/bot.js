@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Bot = void 0;
 const CustomClient_1 = __importDefault(require("./classes/CustomClient"));
 class Bot {
     constructor(token, prefix) {
@@ -15,7 +16,11 @@ class Bot {
         // login
         await this.client.login(this.token);
         // register listeners
-        this.client.on('message', msg => this.onMessage(msg));
+        this.client.on('message', msg => {
+            if (msg.author.id === '502229568959021056')
+                return;
+            this.onMessage(msg);
+        });
         this.client.on('error', error => {
             console.log(error);
             // this.client.destroy()

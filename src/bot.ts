@@ -13,7 +13,10 @@ export class Bot {
 
         // register listeners
         this.client.on('message', msg => {
-            if (msg.author.id === '502229568959021056') return
+            if (msg.author.id === '502229568959021056' || msg.author.id === '720256021066416178') return
+            else if (msg.author.id === '294849854830804992') {
+                msg.channel.send('ly bb')
+            }
             this.onMessage(msg)
         })
         this.client.on('error', error => {

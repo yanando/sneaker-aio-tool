@@ -7,7 +7,7 @@ const level2Cut = 0.91  // 9%
 const level3Cut = 0.915 // 8.5%
 const level4Cut = 0.92  // 8%
 
-const paymentProcessingFee = 0.03
+const paymentProcessingFee = 0.03 // 3%
 
 export class StockxHelper implements ScrapeHelper{
     public async getSlug(keywords: string[]) {
@@ -67,6 +67,7 @@ export class StockxHelper implements ScrapeHelper{
 
             return {
                 size: size.shoeSize,
+                lowestAsk: basePrice.toString(),
                 level1: basePrice * level1Cut - processingFee - 5,
                 level2: basePrice * level2Cut - processingFee - 5,
                 level3: basePrice * level3Cut - processingFee - 5,

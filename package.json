@@ -5,7 +5,10 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": "15.5.0"
+    "node": "15.7.0"
+  },
+  "scripts": {
+    "start": "node ."
   },
   "dependencies": {
     "@types/cheerio": "^0.22.23",

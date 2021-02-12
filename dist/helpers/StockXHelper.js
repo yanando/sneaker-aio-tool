@@ -9,7 +9,7 @@ const level1Cut = 0.905; // 9,5%
 const level2Cut = 0.91; // 9%
 const level3Cut = 0.915; // 8.5%
 const level4Cut = 0.92; // 8%
-const paymentProcessingFee = 0.03;
+const paymentProcessingFee = 0.03; // 3%
 class StockxHelper {
     async getSlug(keywords) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'));
@@ -54,6 +54,7 @@ class StockxHelper {
             const processingFee = basePrice * paymentProcessingFee;
             return {
                 size: size.shoeSize,
+                lowestAsk: basePrice.toString(),
                 level1: basePrice * level1Cut - processingFee - 5,
                 level2: basePrice * level2Cut - processingFee - 5,
                 level3: basePrice * level3Cut - processingFee - 5,

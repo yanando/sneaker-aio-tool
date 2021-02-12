@@ -6,6 +6,7 @@ export interface StockxShoeInfo {
 
 export interface StockxSizeInfo {
     size: string
+    lowestAsk: string
     level1: number
     level2: number
     level3: number

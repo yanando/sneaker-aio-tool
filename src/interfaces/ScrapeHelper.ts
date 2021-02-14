@@ -7,3 +7,8 @@ export interface ScrapeHelper {
     getSlug(keywords: string[]): Promise<string | undefined>
     getShoeInfo(slug: string): Promise<RestocksShoeInfo | GoatShoeInfo | StockxShoeInfo | LacedShoeInfo>
 }
+
+export interface StockXScrapeHelper {
+    getSlug(keywords: string[]): Promise<string | undefined>
+    getShoeInfo(slug: string, currency: 'EUR' | 'USD'): Promise<RestocksShoeInfo | GoatShoeInfo | StockxShoeInfo | LacedShoeInfo>
+}

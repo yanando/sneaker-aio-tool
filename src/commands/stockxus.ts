@@ -3,9 +3,9 @@ import { Message, MessageEmbed } from "discord.js";
 import { StockxHelper } from '../helpers/StockXHelper'
 import { prefix } from "../Config";
 
-export default class StockXCommand implements Command {
-    readonly name = 'stockx'
-    readonly description = 'Gets StockX EU payouts based on keywords'
+export default class StockXUSCommand implements Command {
+    readonly name = 'stockxus'
+    readonly description = 'Gets StockX US payouts based on keywords'
     readonly adminOnly = false
     readonly usage = `${prefix}${this.name} <sellerlevel (1, 2, 3 ,4)> <...keywords>`
 
@@ -20,7 +20,7 @@ export default class StockXCommand implements Command {
         let sellerLevel = args.shift()!
 
         if (!['1', '2', '3', '4'].includes(sellerLevel)) {
-            return message.channel.send(`chosen sellerlevel doesn't exist\nUsage: \`\`${this.usage}\`\``)
+            return message.channel.send(`Chosen sellerlevel doesn't exist\nUsage: \`\`${this.usage}\`\``)
         }
 
         sellerLevel = 'level' + sellerLevel
@@ -39,7 +39,7 @@ export default class StockXCommand implements Command {
             return
         }
 
-        const shoeInfo = await this.stockxHelper.getShoeInfo(slug, 'EUR')
+        const shoeInfo = await this.stockxHelper.getShoeInfo(slug, 'USD')
 
         const embed = new MessageEmbed()
             .setTitle(`StockX | ${shoeInfo.name}`)

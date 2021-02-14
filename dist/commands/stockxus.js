@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const StockXHelper_1 = require("../helpers/StockXHelper");
 const Config_1 = require("../Config");
-class StockXCommand {
+class StockXUSCommand {
     constructor() {
-        this.name = 'stockx';
-        this.description = 'Gets StockX EU payouts based on keywords';
+        this.name = 'stockxus';
+        this.description = 'Gets StockX US payouts based on keywords';
         this.adminOnly = false;
         this.usage = `${Config_1.prefix}${this.name} <sellerlevel (1, 2, 3 ,4)> <...keywords>`;
         this.stockxHelper = new StockXHelper_1.StockxHelper();
@@ -15,7 +15,7 @@ class StockXCommand {
         console.log(`${message.author.username} has requested ${args.join(' ')} | StockX`);
         let sellerLevel = args.shift();
         if (!['1', '2', '3', '4'].includes(sellerLevel)) {
-            return message.channel.send(`chosen sellerlevel doesn't exist\nUsage: \`\`${this.usage}\`\``);
+            return message.channel.send(`Chosen sellerlevel doesn't exist\nUsage: \`\`${this.usage}\`\``);
         }
         sellerLevel = 'level' + sellerLevel;
         const slug = await this.stockxHelper.getSlug(args);
@@ -29,7 +29,7 @@ class StockXCommand {
             message.channel.send(embed);
             return;
         }
-        const shoeInfo = await this.stockxHelper.getShoeInfo(slug, 'EUR');
+        const shoeInfo = await this.stockxHelper.getShoeInfo(slug, 'USD');
         const embed = new discord_js_1.MessageEmbed()
             .setTitle(`StockX | ${shoeInfo.name}`)
             .setURL(`https://stockx.com/${slug}`)
@@ -44,4 +44,4 @@ class StockXCommand {
         message.channel.send(embed);
     }
 }
-exports.default = StockXCommand;
+exports.default = StockXUSCommand;

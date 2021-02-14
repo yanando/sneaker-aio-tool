@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import request from 'request-promise-native'
 import { StockxShoeInfo, StockxSizeInfo } from '../interfaces/shoeinfo/StockxShoeInfo'
-import { ScrapeHelper } from '../interfaces/ScrapeHelper'
+import { ScrapeHelper, StockXScrapeHelper } from '../interfaces/ScrapeHelper'
 
 const level1Cut = 0.905 // 9,5%
 const level2Cut = 0.91  // 9%
@@ -9,29 +9,26 @@ const level4Cut = 0.92  // 8%
 
 const paymentProcessingFee = 0.03 // 3%
 
-export class StockxHelper implements ScrapeHelper{
+export class StockxHelper implements StockXScrapeHelper {
     public async getSlug(keywords: string[]) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'))
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1))
 
-        const options: AxiosRequestConfig = {
+        const options = {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'content-type': 'application/x-www-forn-urlencoded',
                 'x-algolia-api-key': '6bfb5abee4dcd8cea8f0ca1ca085c2b3',
-                'x-algolia-application-id': 'XW7SBCT9V6'
-                // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
-            }
+                'x-algolia-application-id': 'XW7SBCT9V6',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
+            },
+            body: `{"query": "${positiveKeywords.join(' ')}","facets": "*","filters": ""}`
         }
 
-        const body = {
-            query: positiveKeywords.join(' '),
-            facets: '*',
-            filters: ''
-        }
+        const response = await request.post('https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.5.1)%3B%20Browser', options)
 
-        const response = await axios.post('https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.5.1)%3B%20Browser', body, options)
+        const jsonResponse = JSON.parse(response)
 
-        const items: any[] = response.data.hits
+        const items: any[] = jsonResponse.hits
 
         const filteredItems = items.filter(item => {
             return !negativeKeywords.some(keyword => item.name.toLowerCase().includes(keyword.toLowerCase()))
@@ -44,12 +41,22 @@ export class StockxHelper implements ScrapeHelper{
         return filteredItems[0].url as string
     }
 
-    public async getShoeInfo(slug: string): Promise<StockxShoeInfo> {
-        const response = await axios.get(`https://stockx.com/api/products/${slug}?includes=market&currency=EUR`, {headers: {
-            "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'}
-        })
+    public async getShoeInfo(slug: string, currency: 'EUR' | 'USD'): Promise<StockxShoeInfo> {
 
-        const product = response.data["Product"]
+        const options: any = {
+            headers: {
+                "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
+            },
+            json: true
+        }
+
+        if (currency === 'USD') {
+            options.proxy = 'http://KKB1E:FY4VA8UI@172.121.156.10:38171'
+        }
+
+        const response = await request.get(`https://stockx.com/api/products/${slug}?includes=market&currency=${currency}`, options)
+
+        const product = response["Product"]
 
         const imageURL = product.media.imageUrl
 

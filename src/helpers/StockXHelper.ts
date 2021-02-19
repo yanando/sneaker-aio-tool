@@ -1,6 +1,7 @@
 import request from 'request-promise-native'
 import { StockxShoeInfo, StockxSizeInfo } from '../interfaces/shoeinfo/StockxShoeInfo'
-import { ScrapeHelper, StockXScrapeHelper } from '../interfaces/ScrapeHelper'
+import { StockXScrapeHelper } from '../interfaces/ScrapeHelper'
+import { stockxAPIKey, stockxApplicationID } from '../Config'
 
 const level1Cut = 0.905 // 9,5%
 const level2Cut = 0.91  // 9%
@@ -17,8 +18,8 @@ export class StockxHelper implements StockXScrapeHelper {
         const options = {
             headers: {
                 'content-type': 'application/x-www-forn-urlencoded',
-                'x-algolia-api-key': '6bfb5abee4dcd8cea8f0ca1ca085c2b3',
-                'x-algolia-application-id': 'XW7SBCT9V6',
+                'x-algolia-api-key': stockxAPIKey,
+                'x-algolia-application-id': stockxApplicationID,
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
             },
             body: `{"query": "${positiveKeywords.join(' ')}","facets": "*","filters": ""}`

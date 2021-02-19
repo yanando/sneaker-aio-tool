@@ -25,6 +25,8 @@ class Bot {
             console.log(error);
             // this.client.destroy()
         });
+        process.on('uncaughtException', console.log);
+        process.on('unhandledRejection', console.log);
         // initialize commands
         await this.client.commandHandler.initialize();
         // set status 

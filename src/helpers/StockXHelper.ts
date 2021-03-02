@@ -17,7 +17,7 @@ export class StockxHelper implements StockXScrapeHelper {
 
         const options = {
             headers: {
-                'content-type': 'application/x-www-forn-urlencoded',
+                'content-type': 'application/x-www-form-urlencoded',
                 'x-algolia-api-key': stockxAPIKey,
                 'x-algolia-application-id': stockxApplicationID,
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
@@ -76,10 +76,10 @@ export class StockxHelper implements StockXScrapeHelper {
             return {
                 size: size.shoeSize,
                 lowestAsk: basePrice.toString(),
-                level1: basePrice * level1Cut - processingFee - 5,
-                level2: basePrice * level2Cut - processingFee - 5,
-                level3: basePrice * level3Cut - processingFee - 5,
-                level4: basePrice * level4Cut - processingFee - 5,
+                level1: basePrice * level1Cut - processingFee,
+                level2: basePrice * level2Cut - processingFee,
+                level3: basePrice * level3Cut - processingFee,
+                level4: basePrice * level4Cut - processingFee,
             }
         })
 

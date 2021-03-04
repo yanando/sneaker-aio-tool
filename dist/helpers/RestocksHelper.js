@@ -32,7 +32,7 @@ class RestocksHelper {
                 price = undefined;
             }
             else {
-                price = parseInt(el.find('.price').children().first().text().split('€ ')[1]);
+                price = parseInt(el.find('.price').children().first().text().split('€ ')[1].replace(/\./g, ""));
             }
             let payout;
             if (!price) {

@@ -8,7 +8,7 @@ export class RestocksHelper implements ScrapeHelper{
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'))
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1))
 
-        const results = await axios.get(`https://restocks.nl/shop/search?q=${encodeURI(positiveKeywords.join(' '))}&page=1&filters[][range][price][gte]=1`)
+        const results = await axios.get(`https://restocks.net/shop/search?q=${encodeURI(positiveKeywords.join(' '))}&page=1&filters[][range][price][gte]=1`)
 
         const shoeItems: any[] = results.data.data
         
@@ -26,7 +26,8 @@ export class RestocksHelper implements ScrapeHelper{
     }
 
     public async getShoeInfo(slug: string): Promise<RestocksShoeInfo> {
-        const shoePage = await axios.get(`https://restocks.nl${slug}`)
+        console.log(slug)
+        const shoePage = await axios.get(slug)
 
         const $ = cheerio.load(shoePage.data)
 

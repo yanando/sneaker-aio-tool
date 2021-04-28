@@ -27,7 +27,7 @@ class RestocksCommand {
         const shoeInfo = await this.restocksHelper.getShoeInfo(slug);
         const embed = new discord_js_1.MessageEmbed()
             .setTitle(`Restocks | ${shoeInfo.name}`)
-            .setURL(`https://restocks.nl${slug}`)
+            .setURL(slug)
             .setThumbnail(encodeURI(shoeInfo.imageURL))
             .setDescription(`Keywords: ${args.join(' ')}`)
             .addField('Sizes', shoeInfo.payouts.map(e => e.size).join('\n'), true)

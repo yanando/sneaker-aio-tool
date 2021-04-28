@@ -10,7 +10,7 @@ class RestocksHelper {
     async getSlug(keywords) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'));
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1));
-        const results = await axios_1.default.get(`https://restocks.nl/shop/search?q=${encodeURI(positiveKeywords.join(' '))}&page=1&filters[][range][price][gte]=1`);
+        const results = await axios_1.default.get(`https://restocks.net/shop/search?q=${encodeURI(positiveKeywords.join(' '))}&page=1&filters[][range][price][gte]=1`);
         const shoeItems = results.data.data;
         const filteredShoeItems = shoeItems.filter(item => {
             return !negativeKeywords.some(keyword => item.name.toLowerCase().includes(keyword.toLowerCase()));
@@ -22,7 +22,8 @@ class RestocksHelper {
         return selectedItem.slug;
     }
     async getShoeInfo(slug) {
-        const shoePage = await axios_1.default.get(`https://restocks.nl${slug}`);
+        console.log(slug);
+        const shoePage = await axios_1.default.get(slug);
         const $ = cheerio_1.default.load(shoePage.data);
         const resell = $('.select__size__list').children('[data-type="all"]').toArray().map(e => {
             const el = $(e);

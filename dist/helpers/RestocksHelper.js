@@ -22,7 +22,6 @@ class RestocksHelper {
         return selectedItem.slug;
     }
     async getShoeInfo(slug) {
-        console.log(slug);
         const shoePage = await axios_1.default.get(slug);
         const $ = cheerio_1.default.load(shoePage.data);
         const resell = $('.select__size__list').children('[data-type="all"]').toArray().map(e => {

@@ -26,7 +26,6 @@ export class RestocksHelper implements ScrapeHelper{
     }
 
     public async getShoeInfo(slug: string): Promise<RestocksShoeInfo> {
-        console.log(slug)
         const shoePage = await axios.get(slug)
 
         const $ = cheerio.load(shoePage.data)

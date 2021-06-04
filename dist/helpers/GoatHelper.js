@@ -4,23 +4,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoatHelper = void 0;
-const axios_1 = __importDefault(require("axios"));
+const request_promise_native_1 = __importDefault(require("request-promise-native"));
 const goatCut = 0.905; // 9.5%
 const goatShipping = 10; // 10usd
 const payoutFee = 0.971; // 2.9%
 class GoatHelper {
+    constructor() {
+        this.r = request_promise_native_1.default.defaults({
+            proxy: 'http://YANAN80DKQLCN1:VYY7D9DUIZ9W4O@45.144.72.7:39876',
+            resolveWithFullResponse: true
+        });
+    }
     async getSlug(keywords) {
         const positiveKeywords = keywords.filter(keyword => !keyword.startsWith('-'));
         const negativeKeywords = keywords.filter(keyword => keyword.startsWith('-')).map(keyword => keyword.slice(1));
         const options = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            },
+            body: `{"params":"query=&query=${encodeURI(positiveKeywords.join(' '))}&distinct=true&facetFilters=(product_category%3Ashoes)&page=0&hitsPerPage=20&clickAnalytics=true"}`,
+            json: true
         };
-        const body = `{"params":"query=&query=${encodeURI(positiveKeywords.join(' '))}&distinct=true&facetFilters=(product_category%3Ashoes)&page=0&hitsPerPage=20&clickAnalytics=true"}`;
         const url = 'https://2fwotdvm2o-dsn.algolia.net/1/indexes/product_variants_v2_trending_purchase/query?x-algolia-agent=Algolia%20for%20JavaScript%20(3.35.1)%3B%20Browser&x-algolia-application-id=2FWOTDVM2O&x-algolia-api-key=ac96de6fef0e02bb95d433d8d5c7038a';
-        const resp = await axios_1.default.post(url, body, options);
-        const hits = resp.data.hits.filter((item) => {
+        const resp = await this.r.post(url, options);
+        const hits = resp.body.hits.filter((item) => {
             return !negativeKeywords.some(keyword => item.name.toLowerCase().includes(keyword.toLowerCase()));
         });
         if (hits.length === 0) {
@@ -30,13 +37,14 @@ class GoatHelper {
     }
     async getShoeInfo(slug) {
         const url = `https://www.goat.com/web-api/v1/product_variants?productTemplateId=${slug}`;
-        const resp = await axios_1.default.get(url, {
+        const resp = await this.r.get(url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
-            }
+            },
+            json: true
         });
         const { imageURL, name } = await this.getNameAndImage(slug);
-        const sizes = resp.data.filter((size) => size.shoeCondition === 'new_no_defects' && size.boxCondition === 'good_condition');
+        const sizes = resp.body.filter((size) => size.shoeCondition === 'new_no_defects' && size.boxCondition === 'good_condition');
         const sizeInfo = sizes.map((size) => {
             const basePrice = size.lowestPriceCents.amount / 100;
             const payout = (basePrice * goatCut - goatShipping) * payoutFee;
@@ -52,11 +60,11 @@ class GoatHelper {
         };
     }
     async getNameAndImage(slug) {
-        const productPage = await axios_1.default.get(`https://www.goat.com/sneakers/${slug}`, { headers: {
+        const productPage = await this.r.get(`https://www.goat.com/sneakers/${slug}`, { headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
             } });
-        const imageURL = productPage.data.split('","image":"')[1].split('"')[0];
-        const name = productPage.data.split('"@type":"Product","name":"')[1].split('"')[0];
+        const imageURL = productPage.body.split('","image":"')[1].split('"')[0];
+        const name = productPage.body.split('"@type":"Product","name":"')[1].split('"')[0];
         return {
             imageURL,
             name

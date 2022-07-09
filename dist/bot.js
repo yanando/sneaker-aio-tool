@@ -17,6 +17,7 @@ class Bot {
         await this.client.login(this.token);
         // register listeners
         this.client.on('message', msg => {
+            // http://static.fjcdn.com/large/pictures/a0/fc/a0fcfd_1399878.jpg
             if (msg.author.id === '502229568959021056' || msg.author.id === '720256021066416178')
                 return;
             this.onMessage(msg);
@@ -25,8 +26,6 @@ class Bot {
             console.log(error);
             // this.client.destroy()
         });
-        process.on('uncaughtException', console.log);
-        process.on('unhandledRejection', console.log);
         // initialize commands
         await this.client.commandHandler.initialize();
         // set status 
@@ -47,7 +46,6 @@ class Bot {
         }
         catch (error) {
             message.channel.send('Something went wrong while executing this commmand. An error log has been sent to yanando#0001');
-            this.client.channels.cache.get('680813832813543554').send(error);
         }
     }
 }

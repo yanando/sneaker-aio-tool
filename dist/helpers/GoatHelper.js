@@ -11,7 +11,6 @@ const payoutFee = 0.971; // 2.9%
 class GoatHelper {
     constructor() {
         this.r = request_promise_native_1.default.defaults({
-            proxy: 'http://YANAN80DKQLCN1:VYY7D9DUIZ9W4O@45.144.72.7:39876',
             resolveWithFullResponse: true
         });
     }

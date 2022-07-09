@@ -7,11 +7,10 @@ const goatShipping = 10 // 10usd
 
 const payoutFee = 0.971 // 2.9%
 
-export class GoatHelper implements ScrapeHelper{
+export class GoatHelper implements ScrapeHelper {
     r: request.RequestPromiseAPI
     constructor() {
         this.r = request.defaults({
-            proxy: 'http://YANAN80DKQLCN1:VYY7D9DUIZ9W4O@45.144.72.7:39876',
             resolveWithFullResponse: true
         })
     }

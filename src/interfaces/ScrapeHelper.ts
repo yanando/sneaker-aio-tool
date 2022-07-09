@@ -1,14 +1,10 @@
-import { GoatShoeInfo } from "./shoeinfo/GoatShoeInfo";
-import { RestocksShoeInfo } from "./shoeinfo/RestocksShoeInfo";
-import { StockxShoeInfo } from "./shoeinfo/StockxShoeInfo";
-import { LacedShoeInfo } from "./shoeinfo/LacedShoeInfo";
+import { ShoeInfo } from "./shoeinfo/ShoeInfo";
 
 export interface ScrapeHelper {
     getSlug(keywords: string[]): Promise<string | undefined>
-    getShoeInfo(slug: string): Promise<RestocksShoeInfo | GoatShoeInfo | StockxShoeInfo | LacedShoeInfo>
+    getShoeInfo(slug: string): Promise<ShoeInfo>
 }
 
-export interface StockXScrapeHelper {
-    getSlug(keywords: string[]): Promise<string | undefined>
-    getShoeInfo(slug: string, currency: 'EUR' | 'USD'): Promise<RestocksShoeInfo | GoatShoeInfo | StockxShoeInfo | LacedShoeInfo>
+export interface StockXScrapeHelper extends Omit<ScrapeHelper, 'getShoeInfo'> {
+    getShoeInfo(slug: string, currency: 'EUR' | 'USD'): Promise<ShoeInfo>
 }

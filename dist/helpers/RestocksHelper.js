@@ -23,7 +23,6 @@ class RestocksHelper {
     }
     async getShoeInfo(slug) {
         const shoePage = await axios_1.default.get(slug);
-        console.log(shoePage.data);
         const $ = cheerio_1.default.load(shoePage.data);
         const resell = $('.select__size__list').children('[data-type="all"]').toArray().map(e => {
             const el = $(e);
@@ -33,7 +32,7 @@ class RestocksHelper {
                 price = undefined;
             }
             else {
-                price = parseInt(el.find('.price').text().match(/\d+ €/)[0].split(' ')[0]);
+                price = parseInt(el.find('.price').text().match(/€ \d+/)[0].split(' ')[1]);
             }
             let payout;
             if (!price) {

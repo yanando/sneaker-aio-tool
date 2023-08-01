@@ -39,8 +39,10 @@ export class RestocksHelper implements ScrapeHelper{
             if (el.find('.price').text() === 'Notify me') {
                 price = undefined
             } else {
-                price = parseInt(el.find('.price').text().match(/€ \d+/)![0].split(' ')[1])
+                price = parseInt(el.find('.price').text().split('\n')[0].replace('€ ', '').replace('.', ''))
+                console.log(el.find('.price').text().split('\n')[0].replace('€ ', '').replace('.', '') + "\n\n\n")
             }
+
 
             let payout
             if (!price) {
